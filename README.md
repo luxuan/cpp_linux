@@ -1,2 +1,2 @@
-Hello My cpp_linux
+This repo is for my cpp, algorithm and linux study.
 
