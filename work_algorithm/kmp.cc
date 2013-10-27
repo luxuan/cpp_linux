@@ -2,13 +2,13 @@
 #include <cstring>
 using namespace std;
 
-void get_next(char *patterns, int *nexts) {
+void get_next(char *ptn, int *nexts) {
     int i = 0, j = -1;
     nexts[0] = -1;
-    while(patterns[i + 1] != '\0') { // debugged: i -> (i + 1), else delete nexts will be crashed
-        if(j == -1 || patterns[i] == patterns[j]) {
+    while(ptn[i + 1] != '\0') { // debugged: i -> (i + 1), else delete nexts will be crashed
+        if(j == -1 || ptn[i] == ptn[j]) {
             ++i; ++j;
-            if(patterns[i] == patterns[j]) {
+            if(ptn[i] == ptn[j]) {
                 nexts[i] = nexts[j];
             } else {
                 nexts[i] = j;
@@ -77,6 +77,7 @@ void test_index() {
     cout << index(abab, abc) << endl;
 }
 int main(void) {
+    test_get_next(); // view by gdb
     test_index();
     return 0;
 }
