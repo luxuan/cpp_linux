@@ -5,7 +5,7 @@ using namespace std;
 void get_next(char *patterns, int *nexts) {
     int i = 0, j = -1;
     nexts[0] = -1;
-    while(patterns[i] != '\0') {
+    while(patterns[i + 1] != '\0') { // debugged: i -> (i + 1), else delete nexts will be crashed
         if(j == -1 || patterns[i] == patterns[j]) {
             ++i; ++j;
             if(patterns[i] == patterns[j]) {
@@ -29,7 +29,7 @@ int index(char *str, char *ptn, int pos) {
         if(j == -1 || str[i] == ptn[j]) {
             ++i; ++j;
             if(ptn[j] == '\0') {
-                delete[] nexts;
+                delete[] nexts;  // debugged: add
                 return i - j;
             }
         } else {
