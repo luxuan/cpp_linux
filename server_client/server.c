@@ -73,11 +73,12 @@ int main(int argc , char *argv[]) {
     c = sizeof(struct sockaddr_in);
     while( (client_sock = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&c)) ) {
         pthread_t sniffer_thread;
-        new_sock = malloc(1);
+        int *new_sock = malloc(sizeof(int));
         *new_sock = client_sock;
          
-        printf("accept.fd=%d\n", client_sock);
-        if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) client_sock) < 0) {
+        unsigned int t = client.sin_addr.s_addr;
+        printf("accept.fd=%d, ip=%d.%d.%d.%d\n", client_sock, t%256, t/256%256, t/256/256%256, t/256/256/256);
+        if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_sock) < 0) {
             perror("could not create thread");
             return 1;
         }

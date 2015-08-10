@@ -48,6 +48,7 @@ int main(int argc , char *argv[])
         printf("counter=%d, reply=%s", counter, server_reply);
         puts("\n");
         close(sock);
+        sleep(1);
     }
      
     return 0;
