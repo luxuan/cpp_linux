@@ -102,8 +102,8 @@ bool hostname_to_ip1(char *domain) {
 
  
 int main(int argc, char *argv[]) {
-    // for i in {1..10}; do for j in {1..100};do echo "10.23.$i.$j dockerf.intra.weibo.com"; done;done > t
-    char *host = "dockerf.intra.weibo.com";
+    // for i in {1..10}; do for j in {1..100};do echo "10.23.$i.$j t.domain.com"; done;done > t
+    char *host = "t.domain.com";
     printf("host=%s\n", host);
     hostname_to_ip1(host);
 
