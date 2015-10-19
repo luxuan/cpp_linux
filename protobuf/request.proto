@@ -1,0 +1,11 @@
+// protoc -I=. --cpp_out=. request.proto
+message Request {
+    enum CMD {  
+        // CARE: start with 0, uid will be 0
+        SET = 1;  
+        GET = 2;  
+        INCR = 3;
+    };  
+    required CMD cmd = 1;
+    required uint64 uid = 2;
+}
