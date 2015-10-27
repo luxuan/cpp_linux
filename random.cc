@@ -8,8 +8,10 @@
 #include <cstdlib>  // srand, rand
 using namespace std;  
 
-#define MAX_BIT  23
-#define FILENAME "out.txt"
+#define MAX_BIT      25
+#define FILENAME     "out.txt"
+#define LINE_LEN      21
+#define BUFFER_SIZE  (4<<20)
 
 /* *
  * View http://www.cnblogs.com/zhenjing/archive/2012/06/10/c_random.html
@@ -25,22 +27,29 @@ using namespace std;
  * */
 void randomToFile(ofstream &out, int n) {
     unsigned int t;
-    int i = 0;
+    int i = 0, bidx = 0;
     time_t begin, end;
+    char buf[BUFFER_SIZE];
 
     // srandom(time(NULL));
     srand(time(NULL));
-    cout << sizeof(long int) << " " << sizeof(1L) << endl;
 
     begin = time(NULL);
-    // ~= 1M/s
     while(i++ < n) {
         //out << (random() & 0xFFFFFFFFL) << endl; // not work
         t = rand();
         if(rand() & 1) {
             t |= 0x80000000;
         }
-        out << t << endl;
+        //out << t << endl; // 80MB/s no << endl;
+        //*
+        // ~= 10M/s -> 40MB/s(buffered, '\n' same with ' ')
+        bidx += snprintf(buf + bidx, LINE_LEN, "%u\n", t);
+        if(bidx + LINE_LEN >= BUFFER_SIZE) {
+            out << buf;
+            bidx = 0;
+        }
+        //*/
     }
     end = time(NULL);
 
