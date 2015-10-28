@@ -1,0 +1,15 @@
+## Step 1:
+
+    ./configure --add-module=/home/cpp_linux/nginx_module_helloworld/ (directory for new module)
+    make
+
+
+
+
+## Step 2
+
+Add context below in /usr/local/nginx/conf/nginx.conf
+
+    location /test {
+        mytest;
+    }
