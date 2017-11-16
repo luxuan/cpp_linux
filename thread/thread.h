@@ -41,7 +41,9 @@ public:
 
     void join() {
         _joined = true;
-        pthread_join(_pid, NULL);
+        if (_pid > 0) {
+            pthread_join(_pid, NULL);
+        }
     }   
 
     bool is_started() const {
